@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://java.sun.com/xml/ns/javaee"
+  xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+  id="WebApp_ID" version="2.5">
+  <display-name>Diary</display-name> <!-- 建立servlet索引 -->
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+
+  <servlet> <!-- 处理请求 -->
+    <servlet-name>loginServlet</servlet-name> <!-- 第3步 -->
+    <servlet-class>com.java1234.web.LoginServlet</servlet-class> <!-- 第4步 -->
+  </servlet>
+  
+  <servlet-mapping> <!-- 截获请求 -->
+    <servlet-name>loginServlet</servlet-name> <!-- 第2步 -->
+    <url-pattern>/login</url-pattern> <!-- 第1步 -->
+  </servlet-mapping>
+</web-app>
