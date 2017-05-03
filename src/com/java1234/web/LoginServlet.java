@@ -20,13 +20,11 @@ public class LoginServlet extends HttpServlet {
 	DbUtil dbUtil = new DbUtil();
 	UserDao userDao = new UserDao();
 
-	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		this.doPost(request, response);
 	}
 
-	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		HttpSession session = request.getSession();// 从网页客户端发来的请求建立会话
@@ -43,6 +41,7 @@ public class LoginServlet extends HttpServlet {
 				request.setAttribute("user", user); // 在request对象中加入名为"user"的属性（键）并附值为user（值）
 				request.setAttribute("error", "用户名或密码错误！"); // 将web客户端的error属性复制
 				request.getRequestDispatcher("login.jsp").forward(request, response);
+				// 将客户端的请求转向（forward）到getRequestDispatcher（）方法中参数定义的页面或者链接
 
 			} else {
 				System.out.println("success");
