@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 import com.java1234.model.User;
+import com.java1234.util.MD5Util;
 
 /*
  * 判断登录验证
@@ -15,8 +16,8 @@ public class UserDao {
 		User resultUser = null;// 验证后的用户
 		String sql = "select * from t_user where userName=? and password=?";
 		PreparedStatement pstmt = connection.prepareStatement(sql);
-		pstmt.setString(1, user.getUserName());
-		pstmt.setString(2, user.getPassword());
+		pstmt.setString(1, user.getUserName()); //user是用户输入的信息
+		pstmt.setString(2, MD5Util.EncoderPwdByMd5(user.getPassword()));
 		ResultSet rs = pstmt.executeQuery();
 		if (rs.next()) {
 			resultUser = new User();

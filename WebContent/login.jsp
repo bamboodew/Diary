@@ -1,5 +1,30 @@
+<%@ page import="com.java1234.model.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%
+    /* 将Cookie记住的user显示在网页的文本框里面。*/
+	if (request.getAttribute("user") == null) {
+		String userName = null;
+		String password = null;
 
+		Cookie[] cookies = request.getCookies();
+		for (int i = 0; cookies != null && i < cookies.length; i++) {
+			if (cookies[i].getName().equals("user")) {
+				userName = cookies[i].getValue().split("-")[0];
+				password = cookies[i].getValue().split("-")[1];
+			}
+		}
+    
+		if (userName == null) {
+			userName = ""; // 将null转换成“”
+		}
+    
+		if (password == null) {
+			password = "";
+		}
+    
+        pageContext.setAttribute("user", new User(userName,password));
+	}
+%>
 <html lang="zh">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">

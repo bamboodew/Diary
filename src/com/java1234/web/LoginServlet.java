@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Connection;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,6 +31,7 @@ public class LoginServlet extends HttpServlet {
 		HttpSession session = request.getSession();// 从网页客户端发来的请求建立会话
 		String userName = request.getParameter("userName"); // 服务器从网页发来的请求获取用户信息
 		String password = request.getParameter("password");
+		String remember = request.getParameter("remember"); // 记住密码
 
 		Connection connection = null;
 		try {
@@ -44,6 +46,9 @@ public class LoginServlet extends HttpServlet {
 				// 将客户端的请求转向（forward）到getRequestDispatcher（）方法中参数定义的页面或者链接
 
 			} else {
+				if ("remember-me".equals(remember)) {
+					rememberMe(userName, password, response); // 记住密码
+				}
 				System.out.println("success");
 				session.setAttribute("currentUser", currentUser);// 赋值给会话，确定会话的特定登录用户
 				response.sendRedirect("main.jsp");// 服务器向客户端发送跳转，到主页
@@ -58,5 +63,11 @@ public class LoginServlet extends HttpServlet {
 			}
 		}
 	}
+
+	private void rememberMe(String userName, String password, HttpServletResponse response) {
+		Cookie user=new Cookie("user", userName+"-"+password);
+		user.setMaxAge(1*60*60*24*7); // 设置记住时间1个星期
+		response.addCookie(user); // 响应Cookie记住的值
+ 	}
 
 }
