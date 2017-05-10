@@ -1,6 +1,7 @@
 <%@ page import="com.java1234.model.User"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%
+    // 服务器端java代码
     /* 将Cookie记住的user显示在网页的文本框里面。*/
 	if (request.getAttribute("user") == null) {
 		String userName = null;
@@ -13,15 +14,15 @@
 				password = cookies[i].getValue().split("-")[1];
 			}
 		}
-    
+
 		if (userName == null) {
 			userName = ""; // 将null转换成“”
 		}
-    
+
 		if (password == null) {
 			password = "";
 		}
-    
+
         pageContext.setAttribute("user", new User(userName,password));
 	}
 %>
@@ -30,7 +31,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>个人日记本登录</title>
-  
+
   <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css" rel="stylesheet">
   <link href="${pageContext.request.contextPath}/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
   <script src="${pageContext.request.contextPath}/bootstrap/js/jQuery.js"></script>
@@ -47,9 +48,11 @@
       <input id="userName" name="userName" value="${user.userName }" type="text" class="input-block-level" placeholder="屌丝名...">
       <!-- input-block-level 块级元素，独占一行 -->
       <!-- placeholder 占位符 -->
-      <!-- value="${user.userName }"登录之后显示输入值 -->
+      <!-- value="${user.userName }"EL表达式：登录之后显示输入值 -->
 
       <input id="password" name="password" value="${user.password }" type="password" class="input-block-level" placeholder="屌丝码...">
+
+      <!-- 记住Cookie -->
       <label class="checkbox"> <input id="remember" name="remember" type="checkbox" value="remember-me">记住我
         &nbsp;&nbsp;&nbsp;&nbsp; <font id="error" color="red">${error }</font>
       </label>
@@ -60,7 +63,8 @@
       &nbsp;&nbsp;&nbsp;&nbsp;
       <button class="btn btn-large btn-primary" type="button">重置</button>
       <p align="center" style="padding-top: 15px;">
-        版权所有 2014 Java知识分享网 <a href="http://www.java1234.com" target="_blank">http://www.java1234.com</a>
+                     版权所有 2014 Java知识分享网
+        <a href="http://www.java1234.com" target="_blank">http://www.java1234.com</a>
       </p>
     </form>
   </div>

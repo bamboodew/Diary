@@ -8,13 +8,32 @@
     <welcome-file>login.jsp</welcome-file>
   </welcome-file-list>
 
+  <filter>
+    <filter-name>loginFilter</filter-name>
+    <filter-class>com.java1234.filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>loginFilter</filter-name>
+    <url-pattern>/*</url-pattern> <!-- 对所有网页进行过滤 -->
+  </filter-mapping>
+
   <servlet> <!-- 处理请求 -->
     <servlet-name>loginServlet</servlet-name> <!-- 第3步 -->
     <servlet-class>com.java1234.web.LoginServlet</servlet-class> <!-- 第4步 -->
   </servlet>
-  
+
   <servlet-mapping> <!-- 截获请求 -->
     <servlet-name>loginServlet</servlet-name> <!-- 第2步 -->
     <url-pattern>/login</url-pattern> <!-- 第1步 -->
+  </servlet-mapping>
+
+   <servlet> <!-- 处理请求 -->
+    <servlet-name>mainServlet</servlet-name> <!-- 第3步 -->
+    <servlet-class>com.java1234.web.MainServlet</servlet-class> <!-- 第4步 -->
+  </servlet>
+
+  <servlet-mapping> <!-- 截获请求 -->
+    <servlet-name>mainServlet</servlet-name> <!-- 第2步 -->
+    <url-pattern>/main</url-pattern> <!-- 第1步 -->
   </servlet-mapping>
 </web-app>

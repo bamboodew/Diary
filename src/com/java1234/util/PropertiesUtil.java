@@ -15,7 +15,7 @@ public class PropertiesUtil {
 		Properties prop=new Properties();
 		InputStream in=new PropertiesUtil().getClass().getResourceAsStream("/diary.properties");
 		try {
-			prop.load(in);
+			prop.load(in); // 从.properties属性文件对应的文件输入流中，加载属性列表到Properties类对象。
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
