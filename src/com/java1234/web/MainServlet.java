@@ -36,9 +36,11 @@ public class MainServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8"); // 避免乱码
-		String page = request.getParameter("page"); // 前台传入当前页“page”
+		String page = request.getParameter("page"); // 从request对象中取出名称为“page”所对应的值
+		// <li><a href='main?page=1'>首页</a></li> 网址链接中的"page"
+
 		if (StringUtil.isEmpty(page)) {
-			page = "1";
+		page = "1";
 		}
 		Connection connection = null;
 		PageBean pageBean = new PageBean(Integer.parseInt(page), Integer.parseInt(PropertiesUtil.getValue("pageSize")));
@@ -47,23 +49,23 @@ public class MainServlet extends HttpServlet {
 			connection = dbUtil.getCon();
 
 			List<Diary> diaryList = diaryDao.diaryList(connection, pageBean); // 通过sql语句获取1页数据
+
 			int total=diaryDao.diaryCount(connection); // 通过sql语句获取日志总数量
+
 			String pageCode = this.genPagation(total, Integer.parseInt(page),
-					Integer.parseInt(PropertiesUtil.getValue("pageSize")));
-			 // 通过genPagation方法获取分页样式的代码
+					Integer.parseInt(PropertiesUtil.getValue("pageSize"))); // 通过genPagation方法获取分页样式的代码
 
 			request.setAttribute("diaryList", diaryList); // diaryList.jsp中EL表达式：键值对——赋值
 			request.setAttribute("pageCode", pageCode); // diaryList.jsp中EL表达式：键值对——赋值
 			request.setAttribute("mainPage", "diary/diaryList.jsp"); // 链接————对mainPage赋值为diaryList.jsp
 			request.getRequestDispatcher("mainTemp.jsp").forward(request, response); // 内部转发【跳转】至mainTemp.jsp
+
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			try {
 				dbUtil.closeCon(connection);
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -80,7 +82,7 @@ public class MainServlet extends HttpServlet {
 	 *            —— 每页的日志数
 	 * @return
 	 */
-	@SuppressWarnings("unused")
+
 	private String genPagation(int totalNum, int currentPage, int pageSize) {
 		int totalPage = totalNum % pageSize == 0 ? totalNum / pageSize : totalNum / pageSize + 1; // 三目运算符，判断计算总页数。
 		StringBuffer pageCode = new StringBuffer(); // 字符串章节

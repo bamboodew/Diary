@@ -36,8 +36,7 @@ public class LoginFilter implements Filter {
 		String path = httpServletRequest.getServletPath();
 		System.out.println(path);
 
-		if (object == null && path.indexOf("login") < 0 && path.indexOf("bootstrap") < 0
-				&& path.indexOf("images") < 0) {
+		if (object == null && path.indexOf("login") < 0) {
 			httpServletResponse.sendRedirect("login.jsp");
 		} else {
 			filterChain.doFilter(servletRequest, servletResponse);

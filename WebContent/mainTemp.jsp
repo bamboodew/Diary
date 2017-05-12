@@ -50,7 +50,8 @@
   <div class="container">
     <div class="row-fluid">
       <div class="span9">
-        <jsp:include page="${mainPage }"></jsp:include> <!-- 采用include定义mainPage对象，可以【链接】到日志列表 -->
+        <jsp:include page="${mainPage }"></jsp:include>
+        <!-- 采用include定义mainPage对象，可以通过MainServlet【链接】到日志列表 -->
       </div>
 
       <div class="span3">
