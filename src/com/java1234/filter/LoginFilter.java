@@ -16,14 +16,7 @@ public class LoginFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig filterConfig) throws ServletException {
-		// TODO Auto-generated method stub
-		Filter.super.init(filterConfig);
-	}
 
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		Filter.super.destroy();
 	}
 
 	@Override
@@ -36,11 +29,16 @@ public class LoginFilter implements Filter {
 		String path = httpServletRequest.getServletPath();
 		System.out.println(path);
 
-		if (object == null && path.indexOf("login") < 0) {
-			httpServletResponse.sendRedirect("login.jsp");
+		if (path.equals("/login.jsp") || path.equals("/login") || object != null) {
+			filterChain.doFilter(servletRequest, servletResponse); // filter内部处理之后，跳转至正常的response
 		} else {
-			filterChain.doFilter(servletRequest, servletResponse);
+			httpServletResponse.sendRedirect("login.jsp");
 		}
+	}
+
+	@Override
+	public void destroy() {
+
 	}
 
 }

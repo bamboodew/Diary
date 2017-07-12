@@ -19,7 +19,6 @@
       padding-bottom: 40px;
     };
   </style>
-  <style type="text/css">@IMPORT url("diary.css");</style>
 
 </head>
 <body>
@@ -38,7 +37,7 @@
             </div>
 
             <!-- 【搜索表单】 -->
-            <form name="myForm" class="navbar-form pull-right" method="post" action="">
+            <form name="myForm" class="navbar-form pull-right" method="post" action="main?all=true">
               <input class="span2" id="s_title" name="s_title"  type="text" style="margin-top:5px;height:30px;" placeholder="往事如烟...">
               <button type="submit" class="btn" onkeydown="if(event.keyCode==13) myForm.submit()"><i class="icon-search"></i>&nbsp;搜索日志</button>
             </form>
@@ -60,6 +59,15 @@
             <img src="${pageContext.request.contextPath}/images/user_icon.png"/>
                                     个人中心
           </div>
+          <div class="user_image">
+            <img src="${currentUser.imageName }">
+          </div>
+          <div class="nickName">
+            ${currentUser.nickName }
+          </div>
+          <div class="userSign">
+            ${currentUser.mood }
+          </div>
         </div>
 
         <div class="data_list">
@@ -67,13 +75,31 @@
             <img src="${pageContext.request.contextPath}/images/byType_icon.png"/>
                                     按日志类别
           </div>
+
+          <div class="datas">
+            <ul>
+              <c:forEach var="diaryTypeCount" items="${diaryTypeCountList }">
+                <li><span><a href="main?s_typeId=${diaryTypeCount.diaryTypeId }">${diaryTypeCount.typeName }(${diaryTypeCount.diaryCount })</a></span></li>
+              </c:forEach>
+            </ul>
+          </div>
+
         </div>
 
          <div class="data_list">
           <div class="data_list_title">
             <img src="${pageContext.request.contextPath}/images/byDate_icon.png"/>
                                     按日志日期
+                    <!-- 根据月份分组 -->
           </div>
+          <div class="datas">
+            <ul>
+              <c:forEach var="diaryCount" items="${diaryCountList }">
+                <li><span><a href="main?s_releaseDateStr=${diaryCount.releaseDateStr }">${diaryCount.releaseDateStr }(${diaryCount.diaryCount })</a></span></li>
+              </c:forEach>
+            </ul>
+          </div>
+
         </div>
       </div>
     </div>

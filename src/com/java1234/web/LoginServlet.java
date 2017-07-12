@@ -30,7 +30,7 @@ public class LoginServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8"); // 避免乱码
 		HttpSession session = request.getSession();// 从网页客户端发来的请求建立会话
-		String userName = request.getParameter("userName"); // 服务器从网页发来的请求获取用户信息
+		String userName = request.getParameter("userName"); // 服务器从网页发来的请求“userName”的值
 		String password = request.getParameter("password");
 		String remember = request.getParameter("remember"); // 记住密码
 
@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 			User currentUser = userDao.login(connection, user);
 			if (currentUser == null) {
 				System.out.println("error");
-				request.setAttribute("user", user); // 在request对象中加入名为"user"的属性（键）并附值为user（值）
+				// request.setAttribute("user", user); // 在request对象中加入名为"user"的属性（键）并附值为user（值）
 				request.setAttribute("error", "用户名或密码错误！"); // 将web客户端的error属性【赋值】
 				request.getRequestDispatcher("login.jsp").forward(request, response);
 				// 将客户端的请求转向（forward）到getRequestDispatcher（）方法中参数定义的页面或者链接
@@ -52,16 +52,19 @@ public class LoginServlet extends HttpServlet {
 				}
 				System.out.println("success");
 				session.setAttribute("currentUser", currentUser);// 赋值给会话，确定会话的特定登录用户
+				//response.sendRedirect("main");
 				request.getRequestDispatcher("main").forward(request, response);
 				// 服务器向客户端发送跳转，到xml配置的main
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			request.getRequestDispatcher("login.jsp").forward(request, response); // 地址栏直接输入/login
 		} finally {
 			try {
 				dbUtil.closeCon(connection);
 			} catch (Exception e) {
 				e.printStackTrace();
+//				request.getRequestDispatcher("login.jsp").forward(request, response);
 			}
 		}
 	}

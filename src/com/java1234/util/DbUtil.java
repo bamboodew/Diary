@@ -10,8 +10,7 @@ public class DbUtil {
 
 	public Connection getCon() throws Exception {
 		Class.forName(PropertiesUtil.getValue("jdbcName"));// 反射
-		Connection connection = DriverManager.getConnection(PropertiesUtil.getValue("dbUrl"),
-				PropertiesUtil.getValue("dbUserName"), PropertiesUtil.getValue("dbPassword"));
+		Connection connection = DriverManager.getConnection(PropertiesUtil.getValue("dbUrl"), PropertiesUtil.getValue("dbUserName"), PropertiesUtil.getValue("dbPassword"));
 		return connection;
 	}
 

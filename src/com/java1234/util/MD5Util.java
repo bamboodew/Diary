@@ -13,8 +13,8 @@ public class MD5Util {
 		BASE64Encoder base64Encoder=new BASE64Encoder();
 		return base64Encoder.encode(md5.digest(str.getBytes("utf-8")));
 	}
-	
+
 	public static void main(String[] args) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-		System.out.println(EncoderPwdByMd5("123456"));
+		System.out.println(EncoderPwdByMd5("123456")); // Md5方式加密
 	}
 }
